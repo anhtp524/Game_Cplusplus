@@ -10,8 +10,8 @@ int main(int argc, char *args[]){
     SDL_Renderer *render;
     SDL_Texture *tex;
     SDL_CreateWindowAndRenderer(1280, 640, 0, &window, &render);
-	SDL_SetWindowTitle(window, "FIRST LOAD IMAGE!!!");
-	SDL_Surface* surf = IMG_Load("bg60.png");
+	SDL_SetWindowTitle(window, "EGG CHICKEN GAME");
+	SDL_Surface* surf = IMG_Load("bg600.png");
 	tex = SDL_CreateTextureFromSurface(render, surf);
 	SDL_RenderCopyEx(render, tex, NULL, NULL, 0, NULL, SDL_FLIP_NONE);
 	while(true){

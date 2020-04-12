@@ -11,7 +11,7 @@ int main(int argc, char *args[]){
     SDL_Texture *tex;
     SDL_CreateWindowAndRenderer(1280, 640, 0, &window, &render);
 	SDL_SetWindowTitle(window, "FIRST LOAD IMAGE!!!");
-	SDL_Surface* surf = IMG_Load("bg2.png");
+	SDL_Surface* surf = IMG_Load("bg60.png");
 	tex = SDL_CreateTextureFromSurface(render, surf);
 	SDL_RenderCopyEx(render, tex, NULL, NULL, 0, NULL, SDL_FLIP_NONE);
 	while(true){

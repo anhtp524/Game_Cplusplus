@@ -13,7 +13,7 @@ int main(int argc, char *args[]){
 	SDL_SetWindowTitle(window, "EGG CHICKEN GAME");
 	SDL_Surface* surf = IMG_Load("bg600.png");
 	tex = SDL_CreateTextureFromSurface(render, surf);
-	SDL_RenderCopyEx(render, tex, NULL, NULL, 0, NULL, SDL_FLIP_NONE);
+	SDL_RenderCopy(render, tex, NULL, NULL);
 	while(true){
         SDL_RenderPresent(render);
     }

@@ -7,8 +7,8 @@
 #include <time.h>
 #include <string>
 
-
 using namespace std;
+
 void quitSDL(SDL_Window* window, SDL_Renderer* renderer)
 {
 	SDL_DestroyRenderer(renderer);
@@ -23,6 +23,34 @@ int main(int argc, char *args[]){
 
     SDL_CreateWindowAndRenderer(1200, 600, 0, &window, &render);
 	SDL_SetWindowTitle(window, "Egg Chicken");
+
+	SDL_Surface* bkgr = IMG_Load("startgame.png");
+	SDL_Texture* start = SDL_CreateTextureFromSurface(render, bkgr);
+	SDL_RenderCopy(render, start, NULL, NULL);
+	SDL_RenderPresent(render);
+	SDL_DestroyTexture(start);
+	SDL_FreeSurface(bkgr);
+
+    SDL_Event startgame;
+    bool game = false;
+    while(game == false ){
+     if(SDL_PollEvent(&startgame))
+    {
+        switch (startgame.type)
+        {
+            case SDL_QUIT: quitSDL(window, render);  break;
+
+            default :{ if (startgame.type == SDL_KEYDOWN ){
+
+                 if(startgame.key.keysym.sym == SDLK_x) game = true; break;
+
+            }
+            }
+        }
+    }
+    }
+
+    SDL_RenderClear(render);
 play_again:
     if (TTF_Init() < 0)
     {
@@ -39,7 +67,7 @@ play_again:
     SDL_Texture *Ga = NULL;
 
     SDL_Color color = {0,0,0,255};
-    SDL_Rect trung,ga[5],gio,trungvo,tim[5],score_rect,score,score_bgr, score_number, score_ag;
+    SDL_Rect trung, ga[5], gio, trungvo, tim[5], score_rect, score, score_bgr, score_number, score_ag;
 
     ga[0].x = 50;
     ga[0].y = 50;
@@ -109,7 +137,7 @@ play_again:
     int chon_trung = 1;
     int step = 7;
 
-while (TrungVo != 0 ){
+while (TrungVo != 0 && game == true ){
     if(trung.y==150){
         srand(time(0));
         n = rand()% 5;
@@ -178,7 +206,7 @@ while (TrungVo != 0 ){
 
                     gio.x = event.motion.x;
                     if(gio.x<0) gio.x = 0;
-                    if(gio.x>1100) gio.x = 1150;
+                    if(gio.x>1100) gio.x = 1200-56;
                     break;
 
             }
@@ -186,7 +214,7 @@ while (TrungVo != 0 ){
         }
     }
     if(trung.y>=500) {
-        if(trung.x>=gio.x-30&&trung.x<=gio.x+30) {
+        if(trung.x+23>=gio.x&&trung.x+23<=gio.x+56) {
                 if(chon_trung ==1) diem++;
                 else diem+=2;
                 step++;
@@ -275,9 +303,7 @@ while (TrungVo != 0 ){
     {
     if (e.key.keysym.sym == SDLK_SPACE)
     {
-
-
-     goto play_again;
+        goto play_again;
     }
 
    }
@@ -285,7 +311,7 @@ while (TrungVo != 0 ){
  }
 
 
-    SDL_Delay(5000);
+
 	quitSDL(window , render);
 	return 0;
 }
